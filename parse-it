@@ -21,6 +21,8 @@ try:
                 new_entry['Time in bed'] = entry[3]
                 new_entry['Wake up'] = entry[4]
                 new_entry['Sleep Notes'] = entry[5]
+                new_entry['Heart rate'] = entry[6]
+                new_entry['Activity (steps)'] = entry[7]
                 sleep_data.append(new_entry)
         print 'Data parsing success!...'
 except Exception as e:

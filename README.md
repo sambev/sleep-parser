@@ -6,6 +6,6 @@ python script that will parse your sleep data from csv to an array of dictionari
 Basically use it like so.
 Move the sleepdata.csv file to the same directory then:
 
-`python parse-it.py`.
+`./parse-it`.
 
 The end
