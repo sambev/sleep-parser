@@ -1,37 +1,44 @@
 #!/usr/bin/python
 import csv
 import json
+import sys
 
-sleep_data = []
+def parseData(filepath):
+    sleep_data = []
 
-try:
-    with open('sleepdata.csv') as f:
-        print 'Reading csv file...'
-        all_data = csv.reader(f, delimiter=';')
+    try:
+        with open(filepath) as f:
+            print 'Reading csv file...'
+            all_data = csv.reader(f, delimiter=';')
 
-        print 'Parsing data...'
-        for entry in all_data:
-            if 'Start' in entry: # dont do anything with the first row
-                pass
-            else:
-                new_entry = {}
-                new_entry['Start'] = entry[0]
-                new_entry['End'] = entry[1]
-                new_entry['Sleep Quality'] = entry[2]
-                new_entry['Time in bed'] = entry[3]
-                new_entry['Wake up'] = entry[4]
-                new_entry['Sleep Notes'] = entry[5]
-                new_entry['Heart rate'] = entry[6]
-                new_entry['Activity (steps)'] = entry[7]
-                sleep_data.append(new_entry)
-        print 'Data parsing success!...'
-except Exception as e:
-    print 'Error parsing data: %s' % e
+            print 'Parsing data...'
+            for entry in all_data:
+                if 'Start' in entry: # dont do anything with the first row
+                    pass
+                else:
+                    new_entry = {}
+                    new_entry['Start'] = entry[0]
+                    new_entry['End'] = entry[1]
+                    new_entry['Sleep Quality'] = entry[2]
+                    new_entry['Time in bed'] = entry[3]
+                    new_entry['Wake up'] = entry[4]
+                    new_entry['Sleep Notes'] = entry[5]
+                    new_entry['Heart rate'] = entry[6]
+                    new_entry['Activity (steps)'] = entry[7]
+                    sleep_data.append(new_entry)
+            print 'Data parsing success!...'
+    except Exception as e:
+        sys.exit('Error parsing data: %s' % e)
 
-try:
-    print 'Writing json file...'
-    with open('sleep_data.json', 'w') as f:
-        f.write(json.dumps(sleep_data))
-    print 'Write success!'
-except Exception as e:
-    print 'Error parsing data: %s' % e
+    try:
+        print 'Writing json file...'
+        with open('sleep_data.json', 'w') as f:
+            f.write(json.dumps(sleep_data))
+        sys.exit('Write success!')
+    except Exception as e:
+        sys.exit('Error parsing data: %s' % e)
+
+
+if __name__ == '__main__':
+    filepath = sys.argv[1]
+    parseData(filepath)
